@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <h1>This is a Heading</h1>
+    <button onclick="myFunction()">Click me</button>
+    <button onclick="myFunction2()">Second Function</button>
+    <script>
+function myFunction() {
+debugger
+    var apiUrl = "http://thal-qa/SysHCM/api/Login/GetMobileUserCredentials";
+	var obj = JSON.stringify({
+  			 Login_ID: "adil.raza.16156",
+             Password: "abcd@1234",
+			 Counter: 0
+			});
+			let postJSON = function(url, data, callback) {
+				return jQuery.ajax({
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				'type': 'POST',
+				'url': url,
+				'data': data,
+				'dataType': 'json',
+				'success': callback
+				});
+			};
+
+             postJSON(apiUrl,obj,function(response,status,xhr){
+				debugger;
+				if(status == "success")
+				{
+					alert(status)
+					console.table(response.objList)
+				}
+				if(status == "error")
+				{
+					debugger;
+
+				}
+				});
+        }
+        //'application/x-www-form-urlencoded'
+		function myFunction2()
+		{
+			var apiUrl1 = "https://syshcm.systemsltd.com/MobileESS/api/Login/GetMobileUserCredentials";
+            $.ajax({
+               //crossOrigin: true,
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': 'syshcm.systemsltd.com'
+                },
+				type: "POST",
+                url: apiUrl1,
+                async: true,
+                cache: false,
+                crossDomain: true,
+				data: JSON.stringify({
+					Login_ID: "adil.raza.16156",
+					Password: "abcd@1234",
+					Counter: 0
+                }),
+                //contentType: 'application/json',
+                dataType: 'json',
+                
+                success: function (response, status) {
+                    debugger;
+					console.table(response.objList)
+					alert(status);
+				},
+                error: function (xhr, status, error) {
+                    console.log(status);
+				}
+			});
+	}
+    </script>
+</body>
+</html>
